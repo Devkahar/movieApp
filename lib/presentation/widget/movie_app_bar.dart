@@ -27,7 +27,7 @@ class MovieAppBar extends StatelessWidget {
           ),
           Expanded(
             child: Logo(
-              height: Sizes.dimen_12.h.toDouble(),
+              height: Sizes.dimen_4.h.toDouble(),
             ),
           ),
           IconButton(

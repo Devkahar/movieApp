@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/common/screenutil/screenutil.dart';
+import 'package:movie_app/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movie_app/presentation/journeys/home/movie_carousel/animated_movie_card_widget.dart';
 import 'package:movie_app/presentation/journeys/home/movie_carousel/movie_card_widget.dart';
 
@@ -50,7 +52,9 @@ class _MoviePageViewState extends State<MoviePageView> {
         },
         pageSnapping: true,
         itemCount: widget.movies.length,
-        onPageChanged: (idx) {},
+        onPageChanged: (idx) {
+          BlocProvider.of<MovieBackdropBloc>(context).add(MovieBackdropChangedEvent(widget.movies[idx] as MovieEntity));
+        },
       ),
     );
   }

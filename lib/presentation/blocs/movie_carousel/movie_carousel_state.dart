@@ -14,7 +14,6 @@ class MovieCarouselError extends MovieCarouselState {}
 class MovieCarouselLoaded extends MovieCarouselState {
   final List<MovieEntity> movies;
   final int defaultIndex;
-
   const MovieCarouselLoaded({
     required this.movies,
     this.defaultIndex = 0,
