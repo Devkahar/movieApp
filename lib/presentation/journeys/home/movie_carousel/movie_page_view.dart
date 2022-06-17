@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/common/screenutil/screenutil.dart';
+import 'package:movie_app/presentation/journeys/home/movie_carousel/animated_movie_card_widget.dart';
 import 'package:movie_app/presentation/journeys/home/movie_carousel/movie_card_widget.dart';
 
 import '../../../../common/constants/size_constants.dart';
@@ -30,7 +31,6 @@ class _MoviePageViewState extends State<MoviePageView> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     print(widget.movies);
@@ -40,14 +40,18 @@ class _MoviePageViewState extends State<MoviePageView> {
       child: PageView.builder(
         controller: _pageController,
         itemBuilder: (ctx, index) {
-          final movieEntity = widget.movies[index];
-            return MovieCardWidget(movieId: movieEntity.id, posterPath: movieEntity.posterPath);
+          final MovieEntity movie = widget.movies[index];
+          return AnimatedMovieCardWidget(
+            movieId: movie.id,
+            posterPath: movie.posterPath,
+            index: index,
+            pageController: _pageController,
+          );
         },
         pageSnapping: true,
         itemCount: widget.movies.length,
-        onPageChanged: (idx){},
+        onPageChanged: (idx) {},
       ),
-
     );
   }
 }
