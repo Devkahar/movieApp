@@ -37,6 +37,11 @@ dependencies:
   http: ^0.13.4
   equatable: ^2.0.3
   dartz: ^0.10.1
+  get_it: ^7.2.0
+  google_fonts: ^3.0.1
+  flutter_bloc: ^8.0.1
+  flutter_svg: ^1.1.0
+  cached_network_image: ^3.2.1
 
 dev_dependencies:
   flutter_test:
@@ -61,9 +66,14 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/pngs/logo.png
+    - assets/pngs/tmdb_logo.png
+    - assets/svgs/menu.svg
+    - assets/svgs/edit.svg
+    - assets/svgs/home.svg
+    - assets/svgs/like.svg
+    - assets/svgs/profile.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
