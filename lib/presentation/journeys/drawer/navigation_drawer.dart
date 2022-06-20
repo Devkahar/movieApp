@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/common/constants/language_constants.dart';
 import 'package:movie_app/common/constants/size_constants.dart';
+import 'package:movie_app/common/constants/translation_constants.dart';
 import 'package:movie_app/common/extensions/size_extension.dart';
+import 'package:movie_app/common/extensions/string_extension.dart';
+import 'package:movie_app/presentation/app_localization.dart';
+import 'package:movie_app/presentation/blocs/language_bloc/language_bloc.dart';
 import 'package:movie_app/presentation/journeys/drawer/navigation_expanded_list_item.dart';
 import 'package:movie_app/presentation/journeys/drawer/navigation_list_item.dart';
 import 'package:movie_app/presentation/widget/logo.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,20 +42,22 @@ class NavigationDrawer extends StatelessWidget {
               ),
             ),
             NavigationListItem(
-              title: 'Favorite Movies',
+              title: TranslationConstant.favouriteMovies.trans(context),
               onPressed: () {},
             ),
             NavigationExpandedListItem(
-              title: 'Language',
+              title: TranslationConstant.languages.trans(context),
               children: const ['English', 'Spanish'],
+              onPressed: (int index) {
+                BlocProvider.of<LanguageBloc>(context).add(ToggleLanguageEvent(LanguagesConstants.languages[index]));
+              },
+            ),
+            NavigationListItem(
+              title: TranslationConstant.feedback.trans(context),
               onPressed: () {},
             ),
             NavigationListItem(
-              title: 'Feedback',
-              onPressed: () {},
-            ),
-            NavigationListItem(
-              title: 'About',
+              title: TranslationConstant.about.trans(context),
               onPressed: () {},
             ),
           ],

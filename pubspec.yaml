@@ -45,6 +45,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -76,6 +77,8 @@ flutter:
     - assets/svgs/home.svg
     - assets/svgs/like.svg
     - assets/svgs/profile.svg
+    - assets/languages/en.json
+    - assets/languages/es.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
