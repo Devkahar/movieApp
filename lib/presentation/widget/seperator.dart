@@ -4,6 +4,8 @@ import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/presentation/theme/theme_color.dart';
 
 class Separator extends StatelessWidget {
+  const Separator({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

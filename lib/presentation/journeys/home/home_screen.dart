@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/di/get_it.dart';
 import 'package:movie_app/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
+import 'package:movie_app/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
+import 'package:movie_app/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
+import 'package:movie_app/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
 import 'package:movie_app/presentation/widget/movie_app_bar.dart';
 
 import '../../blocs/movie_carousel/movie_carousel_bloc.dart';
@@ -18,12 +21,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final MovieCarouselBloc movieCarouselBloc;
   late final MovieBackdropBloc movieBackdropBloc;
-
+  late final MovieTabbedBloc movieTabbedBloc;
   @override
   void initState() {
     super.initState();
     movieCarouselBloc = getInstance<MovieCarouselBloc>();
     movieBackdropBloc = movieCarouselBloc.movieBackdropBloc;
+    movieTabbedBloc = getInstance<MovieTabbedBloc>();
     try {
       movieCarouselBloc.add(const CarouselLoadEvent());
     } catch (error) {
@@ -38,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
     movieCarouselBloc.close();
     movieBackdropBloc.close();
+    movieTabbedBloc.close();
   }
 
   @override
@@ -49,6 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BlocProvider(
           create: (context) => movieBackdropBloc,
+        ),
+        BlocProvider(
+          create: (context) => movieTabbedBloc,
         ),
       ],
       child: Scaffold(
