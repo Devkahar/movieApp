@@ -14,7 +14,7 @@ class MovieTabCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: () {},
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -25,6 +25,18 @@ class MovieTabCardWidget extends StatelessWidget {
                 '${ApiConstanst.BASE_IMG_URL}$posterPath',
                 fit: BoxFit.cover,
               ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: Sizes.dimen_4.h.toDouble(),
+            ),
+            child: Text(
+
+              title,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
         ],
