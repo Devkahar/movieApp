@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/common/constants/size_constants.dart';
 import 'package:movie_app/common/extensions/size_extension.dart';
+import 'package:movie_app/common/extensions/string_extension.dart';
 import 'package:movie_app/core/api_constants.dart';
 
 class MovieTabCardWidget extends StatelessWidget {
@@ -29,11 +30,11 @@ class MovieTabCardWidget extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: Sizes.dimen_4.h.toDouble(),
+              top: Sizes.dimen_10.h.toDouble(),
             ),
             child: Text(
 
-              title,
+              title.intelliTrim(),
               maxLines: 1,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyText2,
