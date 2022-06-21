@@ -1,7 +1,6 @@
 
 
 import 'package:dartz/dartz.dart';
-import 'package:movie_app/data/models/movies_model.dart';
 import 'package:movie_app/domain/entities/app_error.dart';
 
 import '../entities/movie_entity.dart';
