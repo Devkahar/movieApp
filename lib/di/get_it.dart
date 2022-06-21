@@ -4,6 +4,7 @@ import 'package:movie_app/data/data_source/api_client.dart';
 import 'package:movie_app/data/data_source/movie_remote_data_source.dart';
 import 'package:movie_app/data/repositories/movie_repository_impl.dart';
 import 'package:movie_app/domain/repositories/movie_repository.dart';
+import 'package:movie_app/domain/usecases/get_movie_detail.dart';
 import 'package:movie_app/domain/usecases/get_playing_now.dart';
 import 'package:movie_app/domain/usecases/get_popular.dart';
 import 'package:movie_app/domain/usecases/get_trending.dart';
@@ -11,44 +12,55 @@ import 'package:movie_app/domain/usecases/get_upcoming.dart';
 import 'package:movie_app/presentation/blocs/language_bloc/language_bloc.dart';
 import 'package:movie_app/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movie_app/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
+import 'package:movie_app/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_app/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
 
-final getInstance = GetIt.I;
+final getItInstance = GetIt.I;
 
 Future init() async {
-  getInstance.registerLazySingleton<Client>(() => Client());
-  getInstance.registerLazySingleton<ApiClient>(() => ApiClient(getInstance()));
-  getInstance.registerLazySingleton<MovieRemoteDataSource>(
-      () => MovieRemoteDataSourceImpl(getInstance()));
+  getItInstance.registerLazySingleton<Client>(() => Client());
+  getItInstance
+      .registerLazySingleton<ApiClient>(() => ApiClient(getItInstance()));
+  getItInstance.registerLazySingleton<MovieRemoteDataSource>(
+      () => MovieRemoteDataSourceImpl(getItInstance()));
 
-  getInstance
-      .registerLazySingleton<GetTrending>(() => GetTrending(getInstance()));
-  getInstance
-      .registerLazySingleton<GetPopular>(() => GetPopular(getInstance()));
-  getInstance
-      .registerLazySingleton<GetPlayingNow>(() => GetPlayingNow(getInstance()));
-  getInstance
-      .registerLazySingleton<GetUpcoming>(() => GetUpcoming(getInstance()));
-  getInstance.registerLazySingleton<MovieRepository>(
+  getItInstance
+      .registerLazySingleton<GetTrending>(() => GetTrending(getItInstance()));
+  getItInstance
+      .registerLazySingleton<GetPopular>(() => GetPopular(getItInstance()));
+  getItInstance.registerLazySingleton<GetPlayingNow>(
+      () => GetPlayingNow(getItInstance()));
+  getItInstance
+      .registerLazySingleton<GetUpcoming>(() => GetUpcoming(getItInstance()));
+  getItInstance.registerLazySingleton<MovieRepository>(
     () => MovieRepositoryImpl(
-      getInstance(),
+      getItInstance(),
     ),
   );
-  getInstance.registerFactory(() => MovieBackdropBloc());
-  getInstance.registerFactory(
+  getItInstance.registerLazySingleton<GetMovieDetail>(
+    () => GetMovieDetail(
+      getItInstance(),
+    ),
+  );
+  getItInstance.registerFactory(() => MovieBackdropBloc());
+  getItInstance.registerFactory(
     () => MovieCarouselBloc(
-      getTrending: getInstance(),
-      movieBackdropBloc: getInstance(),
+      getTrending: getItInstance(),
+      movieBackdropBloc: getItInstance(),
     ),
   );
 
-  getInstance.registerFactory(
+  getItInstance.registerFactory(
     () => MovieTabbedBloc(
-      getPopular: GetPopular(getInstance()),
-      getPayingNow: GetPlayingNow(getInstance()),
-      getUpcoming: GetUpcoming(getInstance()),
+      getPopular:getItInstance(),
+      getPayingNow: getItInstance(),
+      getUpcoming: getItInstance(),
     ),
   );
-
-  getInstance.registerLazySingleton<LanguageBloc>(() => LanguageBloc());
+  getItInstance.registerFactory(
+    () => MovieDetailBloc(
+      getMovieDetail: getItInstance(),
+    ),
+  );
+  getItInstance.registerLazySingleton<LanguageBloc>(() => LanguageBloc());
 }

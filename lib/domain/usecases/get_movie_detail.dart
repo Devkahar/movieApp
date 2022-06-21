@@ -10,9 +10,9 @@ import '../entities/app_error.dart';
 import '../entities/movie_entity.dart';
 import 'no_params.dart';
 
-class GetUpcoming extends UseCase<MovieDetailEntity,MovieParam>{
+class GetMovieDetail extends UseCase<MovieDetailEntity,MovieParam>{
   final MovieRepository repository;
-  GetUpcoming(this.repository);
+  GetMovieDetail(this.repository);
 
   @override
   Future<Either<AppError,MovieDetailEntity>> call(MovieParam movieParam) async{

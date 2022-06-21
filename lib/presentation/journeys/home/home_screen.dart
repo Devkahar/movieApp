@@ -25,9 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    movieCarouselBloc = getInstance<MovieCarouselBloc>();
+    movieCarouselBloc = getItInstance<MovieCarouselBloc>();
     movieBackdropBloc = movieCarouselBloc.movieBackdropBloc;
-    movieTabbedBloc = getInstance<MovieTabbedBloc>();
+    movieTabbedBloc = getItInstance<MovieTabbedBloc>();
     try {
       movieCarouselBloc.add(const CarouselLoadEvent());
     } catch (error) {
