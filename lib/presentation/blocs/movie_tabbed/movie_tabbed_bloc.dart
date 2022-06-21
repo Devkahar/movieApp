@@ -9,16 +9,22 @@ import 'package:movie_app/domain/usecases/get_upcoming.dart';
 import 'package:movie_app/domain/usecases/no_params.dart';
 
 part 'movie_tabbed_event.dart';
+
 part 'movie_tabbed_state.dart';
 
 class MovieTabbedBloc extends Bloc<MovieTabbedEvent, MovieTabbedState> {
   final GetPopular getPopular;
   final GetPlayingNow getPayingNow;
   final GetUpcoming getUpcoming;
-  MovieTabbedBloc({required this.getPopular, required this.getPayingNow, required this.getUpcoming}) : super(const MovieTabbedInitial(currentTabIndex: 0)) {
-    on<MovieTabChangedEvent>((event, emit) async{
-      Either<AppError,List<MovieEntity>> moviesEither = right([]);
-      switch(event.currentTabIndex){
+
+  MovieTabbedBloc(
+      {required this.getPopular,
+      required this.getPayingNow,
+      required this.getUpcoming})
+      : super(const MovieTabbedInitial(currentTabIndex: 0)) {
+    on<MovieTabChangedEvent>((event, emit) async {
+      Either<AppError, List<MovieEntity>> moviesEither = right([]);
+      switch (event.currentTabIndex) {
         case 0:
           moviesEither = await getPopular(NoParams());
           break;
@@ -29,10 +35,19 @@ class MovieTabbedBloc extends Bloc<MovieTabbedEvent, MovieTabbedState> {
           moviesEither = await getUpcoming(NoParams());
           break;
       }
-      final data = moviesEither.fold((l) => MovieTabLoadError(currentTabIndex: event.currentTabIndex), (movies) {
-        return MovieTabChange(movies: movies, currentTabIndex: event.currentTabIndex);
+      final data = moviesEither.fold(
+          (l) => MovieTabLoadError(
+              appErrorType: l.appErrorType,
+              currentTabIndex: event.currentTabIndex), (movies) {
+        return MovieTabChange(
+            movies: movies, currentTabIndex: event.currentTabIndex);
       });
       emit(data);
+
     });
   }
 }
+//Tab error test
+// MovieTabLoadError(
+// appErrorType: AppErrorType.api,
+// currentTabIndex: event.currentTabIndex)

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/common/constants/size_constants.dart';
+import 'package:movie_app/common/constants/translation_constants.dart';
 import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/common/extensions/string_extension.dart';
 import 'package:movie_app/presentation/app_localization.dart';
@@ -9,6 +10,7 @@ import 'package:movie_app/presentation/journeys/home/movie_tab/movie_list_view_b
 import 'package:movie_app/presentation/journeys/home/movie_tab/movie_tab_card_widget.dart';
 import 'package:movie_app/presentation/journeys/home/movie_tab/movie_tab_constants.dart';
 import 'package:movie_app/presentation/journeys/home/movie_tab/tab_title_widget.dart';
+import 'package:movie_app/presentation/widget/app_error_widget.dart';
 
 class MovieTabbedWiget extends StatefulWidget {
   const MovieTabbedWiget({Key? key}) : super(key: key);
@@ -45,7 +47,7 @@ class _MovieTabbedWigetState extends State<MovieTabbedWiget>
         currentTabIndex: index,
       ),
     );
-    setState((){
+    setState(() {
       currentTabIndex = index;
     });
   }
@@ -76,7 +78,31 @@ class _MovieTabbedWigetState extends State<MovieTabbedWiget>
                 ],
               ),
               if (state is MovieTabChange)
-                Expanded(child: MovieListViewBuilder(movies: state.movies)),
+                state.movies.isEmpty
+                    ? Expanded(
+                        child: Center(
+                          child: Text(
+                            TranslationConstant.noMovies.trans(context),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                        ),
+                      )
+                    : Expanded(
+                        child: MovieListViewBuilder(
+                          movies: state.movies,
+                        ),
+                      ),
+              if (state is MovieTabLoadError)
+                Expanded(
+                  child: AppErrorWidget(
+                      appErrorType: state.appErrorType,
+                      onPressed: () {
+                        movieTabbedBloc.add(MovieTabChangedEvent(
+                          currentTabIndex: currentTabIndex,
+                        ));
+                      }),
+                ),
             ],
           ),
         );
