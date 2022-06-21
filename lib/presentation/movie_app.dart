@@ -8,6 +8,7 @@ import 'package:movie_app/presentation/blocs/language_bloc/language_bloc.dart';
 import 'package:movie_app/presentation/theme/theme_color.dart';
 import 'package:movie_app/presentation/theme/theme_text.dart';
 import 'package:movie_app/common/screenutil/screenutil.dart';
+import 'package:movie_app/presentation/wiredash_app.dart';
 
 import 'journeys/home/home_screen.dart';
 import 'theme/theme_color.dart';
@@ -21,6 +22,7 @@ class MovieApp extends StatefulWidget {
 }
 
 class _MovieAppState extends State<MovieApp> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
   late LanguageBloc _languageBloc;
 
   @override
@@ -41,29 +43,34 @@ class _MovieAppState extends State<MovieApp> {
       child: BlocBuilder<LanguageBloc,LanguageState>(
         builder: (ctx,state){
           if(state is LanguageLoadedState){
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Movie App',
-              theme: ThemeData(
-                primaryColor: AppColor.vulcan,
-                scaffoldBackgroundColor: AppColor.vulcan,
-                visualDensity: VisualDensity.adaptivePlatformDensity,
-                textTheme: ThemeText.getTextTheme(),
-                appBarTheme: const AppBarTheme(elevation: 0),
+            return WiredashApp(
+              navigatorKey: _navigatorKey ,
+              languageCode: state.locale.languageCode,
+              child: MaterialApp(
+                navigatorKey: _navigatorKey ,
+                debugShowCheckedModeBanner: false,
+                title: 'Movie App',
+                theme: ThemeData(
+                  primaryColor: AppColor.vulcan,
+                  scaffoldBackgroundColor: AppColor.vulcan,
+                  visualDensity: VisualDensity.adaptivePlatformDensity,
+                  textTheme: ThemeText.getTextTheme(),
+                  appBarTheme: const AppBarTheme(elevation: 0),
+                ),
+                supportedLocales: LanguagesConstants.languages.map((e) => Locale(e.code)).toList(),
+                locale:state.locale,
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                home: const HomeScreen(),
               ),
-              supportedLocales: LanguagesConstants.languages.map((e) => Locale(e.code)).toList(),
-              locale:state.locale,
-              localizationsDelegates: [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              home: const HomeScreen(),
             );
           }
           return const SizedBox.shrink();
         },
-      )
+      ),
     );
   }
 }
