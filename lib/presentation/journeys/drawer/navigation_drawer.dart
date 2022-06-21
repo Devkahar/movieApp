@@ -7,8 +7,10 @@ import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/common/extensions/string_extension.dart';
 import 'package:movie_app/presentation/app_localization.dart';
 import 'package:movie_app/presentation/blocs/language_bloc/language_bloc.dart';
+import 'package:movie_app/presentation/journeys/app_dialog/app_dialog.dart';
 import 'package:movie_app/presentation/journeys/drawer/navigation_expanded_list_item.dart';
 import 'package:movie_app/presentation/journeys/drawer/navigation_list_item.dart';
+import 'package:movie_app/presentation/theme/theme_color.dart';
 import 'package:movie_app/presentation/widget/logo.dart';
 import 'package:wiredash/wiredash.dart';
 
@@ -50,7 +52,8 @@ class NavigationDrawer extends StatelessWidget {
               title: TranslationConstant.languages.trans(context),
               children: const ['English', 'Spanish'],
               onPressed: (int index) {
-                BlocProvider.of<LanguageBloc>(context).add(ToggleLanguageEvent(LanguagesConstants.languages[index]));
+                BlocProvider.of<LanguageBloc>(context).add(
+                    ToggleLanguageEvent(LanguagesConstants.languages[index]));
               },
             ),
             NavigationListItem(
@@ -62,9 +65,27 @@ class NavigationDrawer extends StatelessWidget {
             ),
             NavigationListItem(
               title: TranslationConstant.about.trans(context),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+                _showDialog(context);
+              },
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AppDialog(
+        title: TranslationConstant.about,
+        description: TranslationConstant.aboutDescription,
+        buttonText: TranslationConstant.okay,
+        image: Image.asset(
+          'assets/pngs/tmdb_logo.png',
+          height: Sizes.dimen_32.h.toDouble(),
         ),
       ),
     );

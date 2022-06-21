@@ -1,9 +1,11 @@
 {
-"favouriteMovies": "Favourites Movies",
-"languages": "Languages",
-"about": "About",
-"popular": "POPULAR",
-"now": "NOW",
-"soon": "SOON",
-"feedback": "Feedback"
+  "favouriteMovies": "Favourites Movies",
+  "languages": "Languages",
+  "about": "About",
+  "popular": "POPULAR",
+  "now": "NOW",
+  "soon": "SOON",
+  "feedback": "Feedback",
+  "okay": "Okay",
+  "aboutDescription": "This App is using TMDB API."
 }

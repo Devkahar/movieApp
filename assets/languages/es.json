@@ -5,5 +5,7 @@
   "popular": "POPULAR",
   "now": "AHORA",
   "soon": "PRONTO",
-  "feedback": "Retroalimentación"
+  "feedback": "Retroalimentación",
+  "okay": "De acuerdo",
+  "aboutDescription": "Esta aplicación utiliza la API de TMDB."
 }

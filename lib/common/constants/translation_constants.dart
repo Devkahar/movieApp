@@ -9,4 +9,6 @@ class TranslationConstant{
   static const soon = "soon";
   static const popular = "popular";
   static const feedback = "feedback";
+  static const okay ="okay";
+  static const aboutDescription = "aboutDescription";
 }
