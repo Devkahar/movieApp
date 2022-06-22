@@ -59,11 +59,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             }
             if (state is MovieDetailError) {
               return Container(
-                child: const Text("error"),
+                child: const Center(child: Text("error")),
               );
             }
 
-            return const Text('SomeThing Else');
+            return const Center(child: Text('SomeThing Else'));
           },
         ),
       ),

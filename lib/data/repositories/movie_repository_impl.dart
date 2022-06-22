@@ -4,7 +4,9 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:movie_app/data/data_source/movie_remote_data_source.dart';
+import 'package:movie_app/data/models/cast_crew_data_model.dart';
 import 'package:movie_app/domain/entities/MovieDetailEntity.dart';
+import 'package:movie_app/domain/entities/cast_entity.dart';
 import 'package:movie_app/domain/entities/movie_entity.dart';
 import 'package:movie_app/domain/repositories/movie_repository.dart';
 
@@ -83,5 +85,19 @@ class MovieRepositoryImpl extends MovieRepository{
       return const Left(AppError(AppErrorType.api));
     }
   }
+
+  @override
+  Future<Either<AppError, List<CastEntity>>> getCastCrew(int id) async{
+    try{
+      final cast = await remoteDataSource.getCrewCast(id);
+      return Right(cast);
+    }on SocketException{
+      return const Left(AppError(AppErrorType.network));
+    }
+    on Exception{
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
 
 }
