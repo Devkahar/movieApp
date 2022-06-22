@@ -8,6 +8,7 @@ import 'package:movie_app/data/models/cast_crew_data_model.dart';
 import 'package:movie_app/domain/entities/MovieDetailEntity.dart';
 import 'package:movie_app/domain/entities/cast_entity.dart';
 import 'package:movie_app/domain/entities/movie_entity.dart';
+import 'package:movie_app/domain/entities/video_entity.dart';
 import 'package:movie_app/domain/repositories/movie_repository.dart';
 
 import '../../domain/entities/app_error.dart';
@@ -98,6 +99,20 @@ class MovieRepositoryImpl extends MovieRepository{
       return const Left(AppError(AppErrorType.api));
     }
   }
+
+  @override
+  Future<Either<AppError, List<VideoEntity>>> getVideos(int id) async{
+    try {
+      final videos = await remoteDataSource.getVideos(id);
+      return Right(videos);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return Left(AppError(AppErrorType.api));
+    }
+  }
+
+
 
 
 }
