@@ -1,8 +1,8 @@
 import 'package:movie_app/domain/entities/cast_entity.dart';
 class CastCrewResultModel {
   int? id;
-  List<CastModel> cast = [];
-  List<Crew> crew = [];
+  List<CastModel>? cast = [];
+  List<Crew>? crew = [];
 
   CastCrewResultModel({
     required this.id,
@@ -14,14 +14,14 @@ class CastCrewResultModel {
     id = json['id'];
     if (json['cast'] != null) {
       cast = <CastModel>[];
-      json['cast'].forEach((v) {
-        cast.add(CastModel.fromJson(v));
+      json['cast']?.forEach((v) {
+        cast?.add(CastModel.fromJson(v));
       });
     }
     if (json['crew'] != null) {
       crew = <Crew>[];
       json['crew'].forEach((v) {
-        crew.add(Crew.fromJson(v));
+        crew?.add(Crew.fromJson(v));
       });
     }
   }
@@ -29,8 +29,8 @@ class CastCrewResultModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['cast'] = cast.map((v) => v.toJson()).toList();
-    data['crew'] = crew.map((v) => v.toJson()).toList();
+    data['cast'] = cast?.map((v) => v.toJson()).toList();
+    data['crew'] = crew?.map((v) => v.toJson()).toList();
     return data;
   }
 }
@@ -70,7 +70,7 @@ class CastModel extends CastEntity {
       id: json['id'],
       name: json['name'],
       order: json['order'],
-      profilePath: json['profile_path'],
+      profilePath: json['profile_path']??'',
     );
   }
 

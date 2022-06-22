@@ -21,6 +21,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
         (movieDetail) => MovieDetailLoaded(movieDetail),
       );
       emit(data);
+      castBloc.add(LoadCastEvent(movieId: event.movieId));
     });
   }
 }

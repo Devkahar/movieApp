@@ -88,6 +88,6 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   Future<List<CastModel>> getCrewCast(int id) async{
     final res = await _client.get('movie/$id/credits');
     final cast = CastCrewResultModel.fromJson(res).cast;
-    return cast;
+    return cast??[];
   }
 }

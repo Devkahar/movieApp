@@ -62,15 +62,16 @@ Future init() async {
       getUpcoming: getItInstance(),
     ),
   );
-  getItInstance.registerFactory(
-    () => CastBloc(
-      getCast: getItInstance(),
-    ),
-  );
+
   getItInstance.registerFactory(
     () => MovieDetailBloc(
       getMovieDetail: getItInstance(),
       castBloc: getItInstance(),
+    ),
+  );
+  getItInstance.registerFactory(
+        () => CastBloc(
+      getCast: getItInstance(),
     ),
   );
   getItInstance.registerLazySingleton<LanguageBloc>(() => LanguageBloc());

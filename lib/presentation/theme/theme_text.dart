@@ -54,4 +54,8 @@ extension ThemeTextExtension on TextTheme{
   TextStyle get violet => ThemeText._whiteHeadline6.copyWith(
     color: AppColor.violet,
   );
+  TextStyle get vulcanBodyText2 => ThemeText._whiteBodyText2.copyWith(
+    color: AppColor.vulcan,
+    fontWeight: FontWeight.w600,
+  );
 }

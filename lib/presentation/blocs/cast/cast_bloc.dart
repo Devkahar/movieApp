@@ -18,6 +18,7 @@ class CastBloc extends Bloc<CastEvent, CastState> {
   CastBloc({required this.getCast}) : super(CastInitial()) {
     on<LoadCastEvent>((event, emit) async{
       Either<AppError,List<CastEntity>> res = await getCast(MovieParam(event.movieId));
+      print("Exec");
       final data = res.fold((l) => CastError(), (cast) => CastLoaded(cast: cast));
       emit(data);
     });
