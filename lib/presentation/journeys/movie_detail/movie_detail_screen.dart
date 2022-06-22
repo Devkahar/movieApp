@@ -8,7 +8,9 @@ import 'package:movie_app/di/get_it.dart';
 import 'package:movie_app/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movie_app/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movie_app/presentation/blocs/movie_detail/movie_detail_bloc.dart';
+import 'package:movie_app/presentation/blocs/videos/video_bloc.dart';
 import 'package:movie_app/presentation/journeys/movie_detail/cast_widget.dart';
+import 'package:movie_app/presentation/journeys/movie_detail/video_widget.dart';
 
 import 'big_poster.dart';
 import 'movie_detail_arguments.dart';
@@ -26,12 +28,14 @@ class MovieDetailScreen extends StatefulWidget {
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   late final MovieDetailBloc _movieDetailBloc;
   late final CastBloc _castBloc;
+  late final VideoBloc _videoBloc;
 
   @override
   void initState() {
     super.initState();
     _movieDetailBloc = getItInstance<MovieDetailBloc>();
     _castBloc = _movieDetailBloc.castBloc;
+    _videoBloc = _movieDetailBloc.videoBloc;
     print(widget.movieDetailarguments.movieId);
     _movieDetailBloc.add(
       MovieDetailLoadEvent(widget.movieDetailarguments.movieId),
@@ -42,6 +46,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   void dispose() {
     _movieDetailBloc.close();
     _castBloc.close();
+    _videoBloc.close();
     super.dispose();
   }
 
@@ -84,6 +89,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       ),
                     ),
                     const CastWidget(),
+                    VideosWidget(videosBloc: _videoBloc,),
                   ],
                 ),
               );

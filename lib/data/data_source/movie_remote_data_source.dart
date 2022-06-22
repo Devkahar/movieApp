@@ -97,8 +97,8 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
 
   @override
   Future<List<VideoModel>> getVideos(int id) async{
-    final res = await _client.get('movie/$id/credits');
+    final res = await _client.get('movie/$id/videos');
     final video = VideoResultModel.fromJson(res);
-    return video.videos??[];
+    return video.videos;
   }
 }
