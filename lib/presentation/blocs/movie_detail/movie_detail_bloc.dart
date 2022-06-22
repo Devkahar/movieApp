@@ -19,6 +19,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
         (l) => MovieDetailError(),
         (movieDetail) => MovieDetailLoaded(movieDetail),
       );
+      emit(data);
     });
   }
 }

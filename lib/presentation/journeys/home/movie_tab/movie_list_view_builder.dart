@@ -20,6 +20,7 @@ class MovieListViewBuilder extends StatelessWidget {
         itemBuilder: (ctx, idx) => MovieTabCardWidget(
           title: movies[idx].title,
           posterPath: movies[idx].posterPath,
+          id: movies[idx].id,
         ),
         itemCount: movies.length,
         separatorBuilder: (ctx, idx) {

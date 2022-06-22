@@ -23,9 +23,9 @@ class MovieDetailModel extends MovieDetailEntity {
   @override
   final String posterPath;
   final double popularity;
-  final String mediaType;
+  final String? mediaType;
 
-  MovieDetailModel({
+  const MovieDetailModel({
     required this.id,
     required this.video,
     required this.voteCount,
@@ -62,7 +62,7 @@ class MovieDetailModel extends MovieDetailEntity {
       backdropPath: json['backdrop_path'],
       originalLanguage: json['original_language'],
       originalTitle: json['original_title'],
-      genreIds: json['genre_ids'].cast<int>(),
+      genreIds: json['genre_ids']==null?[]:json['genre_ids'].cast<int>(),
       title: json['title'],
       voteAverage: json['vote_average']?.toDouble() ?? 0.0,
       overview: json['overview'],
@@ -72,7 +72,7 @@ class MovieDetailModel extends MovieDetailEntity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = id;
     data['video'] = video;
     data['vote_count'] = voteCount;

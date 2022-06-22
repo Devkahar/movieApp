@@ -48,4 +48,10 @@ extension ThemeTextExtension on TextTheme{
     color: AppColor.royalBlue,
     fontWeight: FontWeight.w600,
   );
+  TextStyle get greySubtitle1 => ThemeText._whiteSubtitle1.copyWith(
+    color: Colors.grey,
+  );
+  TextStyle get violet => ThemeText._whiteHeadline6.copyWith(
+    color: AppColor.violet,
+  );
 }

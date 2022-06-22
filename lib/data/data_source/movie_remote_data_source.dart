@@ -77,7 +77,7 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
 
   @override
   Future<MovieDetailModel> getMovieDetail(int id) async{
-    final res = await _client.get('movie/#id');
+    final res = await _client.get('movie/$id');
     final movieDetail = MovieDetailModel.fromJson(res);
     return movieDetail;
   }
