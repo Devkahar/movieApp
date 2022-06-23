@@ -18,6 +18,7 @@ import 'package:movie_app/domain/usecases/get_upcoming.dart';
 import 'package:movie_app/domain/usecases/get_video.dart';
 import 'package:movie_app/domain/usecases/save_movie.dart';
 import 'package:movie_app/presentation/blocs/cast/cast_bloc.dart';
+import 'package:movie_app/presentation/blocs/favourite/favourite_bloc.dart';
 import 'package:movie_app/presentation/blocs/language_bloc/language_bloc.dart';
 import 'package:movie_app/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movie_app/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
@@ -95,24 +96,32 @@ Future init() async {
   );
 
   getItInstance.registerLazySingleton<SaveMovie>(
-        () => SaveMovie(
-      getItInstance(),
-    ),
-  );getItInstance.registerLazySingleton<DeleteFavouriteMovie>(
-        () => DeleteFavouriteMovie(
-      getItInstance(),
-    ),
-  );getItInstance.registerLazySingleton<CheckIsFavouriteMovie>(
-        () => CheckIsFavouriteMovie(
-      getItInstance(),
-    ),
-  );getItInstance.registerLazySingleton<GetFavouriteMovies>(
-        () => GetFavouriteMovies(
+    () => SaveMovie(
       getItInstance(),
     ),
   );
+  getItInstance.registerLazySingleton<DeleteFavouriteMovie>(
+    () => DeleteFavouriteMovie(
+      getItInstance(),
+    ),
+  );
+  getItInstance.registerLazySingleton<CheckIsFavouriteMovie>(
+    () => CheckIsFavouriteMovie(
+      getItInstance(),
+    ),
+  );
+  getItInstance.registerLazySingleton<GetFavouriteMovies>(
+    () => GetFavouriteMovies(
+      getItInstance(),
+    ),
+  );
+  getItInstance.registerLazySingleton<LanguageBloc>(
+    () => LanguageBloc(),
+  );
 
-  getItInstance.registerFactory(() => MovieBackdropBloc());
+  getItInstance.registerFactory(
+    () => MovieBackdropBloc(),
+  );
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
       getTrending: getItInstance(),
@@ -150,5 +159,12 @@ Future init() async {
       getSearchMovie: getItInstance(),
     ),
   );
-  getItInstance.registerLazySingleton<LanguageBloc>(() => LanguageBloc());
+  getItInstance.registerFactory(
+    () => FavouriteBloc(
+      checkIsFavouriteMovie: getItInstance(),
+      getFavouriteMovies: getItInstance(),
+      deleteFavouriteMovie: getItInstance(),
+      saveMovie: getItInstance(),
+    ),
+  );
 }

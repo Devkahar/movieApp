@@ -23,7 +23,7 @@ class ToggleFavouriteMovieEvent extends FavouriteEvent{
 }
 class CheckIfFavouriteMovieEvent extends FavouriteEvent{
 
-  final String movieId;
+  final int movieId;
   const CheckIfFavouriteMovieEvent(this.movieId);
   @override
   List<Object?> get props => [movieId];

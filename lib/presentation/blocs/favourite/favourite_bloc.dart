@@ -7,6 +7,7 @@ import 'package:movie_app/domain/entities/movie_param.dart';
 import 'package:movie_app/domain/usecases/check_if_favourie_movie.dart';
 import 'package:movie_app/domain/usecases/delete_favourite_movie.dart';
 import 'package:movie_app/domain/usecases/get_favourite_movies.dart';
+import 'package:movie_app/domain/usecases/no_params.dart';
 import 'package:movie_app/domain/usecases/save_movie.dart';
 
 part 'favourite_event.dart';
@@ -48,12 +49,12 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
       },
     );
     on<CheckIfFavouriteMovieEvent>((event, emit) async {
-      final res = await checkIsFavouriteMovie(MovieParam(event.movie.id));
+      final res = await checkIsFavouriteMovie(MovieParam(event.movieId));
       final data =res.fold((l) => FavouriteMovieError(), (r) => IsFavourite(r));
       emit(data);
     });
     on<FavouriteMovieLoadEvent>((event, emit) async {
-      final res = await getFavouriteMovies();
+      final res = await getFavouriteMovies(NoParams());
       final data =res.fold((l) => FavouriteMovieError(), (r) => FavouriteMovieLoaded(r));
       emit(data);
     });
