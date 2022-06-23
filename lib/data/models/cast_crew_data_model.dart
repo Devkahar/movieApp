@@ -75,7 +75,7 @@ class CastModel extends CastEntity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['cast_id'] = castId;
     data['character'] = character;
     data['credit_id'] = creditId;
