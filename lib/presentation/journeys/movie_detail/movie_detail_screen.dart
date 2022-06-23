@@ -6,7 +6,6 @@ import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/common/extensions/string_extension.dart';
 import 'package:movie_app/di/get_it.dart';
 import 'package:movie_app/presentation/blocs/cast/cast_bloc.dart';
-import 'package:movie_app/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movie_app/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_app/presentation/blocs/videos/video_bloc.dart';
 import 'package:movie_app/presentation/journeys/movie_detail/cast_widget.dart';
@@ -36,7 +35,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     _movieDetailBloc = getItInstance<MovieDetailBloc>();
     _castBloc = _movieDetailBloc.castBloc;
     _videoBloc = _movieDetailBloc.videoBloc;
-    print(widget.movieDetailarguments.movieId);
+    // print(widget.movieDetailarguments.movieId);
     _movieDetailBloc.add(
       MovieDetailLoadEvent(widget.movieDetailarguments.movieId),
     );
@@ -62,7 +61,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           builder: (context, state) {
             if (state is MovieDetailLoaded) {
               final movieDetail = state.movieDetailEntity;
-              print("movieDetailData");
+              // print("movieDetailData");
 
               return SingleChildScrollView(
                 child: Column(
@@ -95,9 +94,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               );
             }
             if (state is MovieDetailError) {
-              return Container(
-                child: const Center(child: Text("error")),
-              );
+              return const Center(child: Text("error"));
             }
             return const Center(child: Text('SomeThing Else'));
           },

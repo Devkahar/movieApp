@@ -4,9 +4,8 @@ import 'package:movie_app/common/extensions/double_extension.dart';
 import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/common/screenutil/screenutil.dart';
 import 'package:movie_app/core/api_constants.dart';
-import 'package:movie_app/domain/entities/MovieDetailEntity.dart';
+import 'package:movie_app/domain/entities/movie_detail_entity.dart';
 import 'package:movie_app/presentation/journeys/movie_detail/movie_detail_app_bar.dart';
-import 'package:movie_app/presentation/theme/theme_color.dart';
 import 'package:movie_app/presentation/theme/theme_text.dart';
 
 class BigPoster extends StatelessWidget {
@@ -57,7 +56,7 @@ class BigPoster extends StatelessWidget {
           left: Sizes.dimen_16.w.toDouble(),
           right: Sizes.dimen_16.w.toDouble(),
           top: ScreenUtil.statusBarHeight + Sizes.dimen_4.h.toDouble(),
-          child: MovieDetailAppBar(),
+          child: const MovieDetailAppBar(),
         ),
       ],
     );

@@ -22,15 +22,15 @@ class VideosWidget extends StatelessWidget {
       bloc: videosBloc,
       builder: (context, state) {
         if (state is VideoLoaded && state.videos.isNotEmpty) {
-          final _videos = state.videos;
-          print(state.videos.length);
+          final videos = state.videos;
+          // print(state.videos.length);
           return Button(
             title: TranslationConstant.watchTrailers.trans(context),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => WatchVideoScreen(
-                    watchVideoArguments: WatchVideoArguments(_videos),
+                    watchVideoArguments: WatchVideoArguments(videos),
                   ),
                 ),
               );

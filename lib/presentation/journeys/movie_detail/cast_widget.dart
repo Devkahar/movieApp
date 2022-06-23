@@ -17,8 +17,8 @@ class CastWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is CastLoaded) {
           final List<CastEntity> cast = state.cast;
-          print("rendered");
-          return Container(
+          // print("rendered");
+          return SizedBox(
             height: Sizes.dimen_100.h.toDouble(),
             child: ListView.builder(
               shrinkWrap: true,
@@ -90,9 +90,9 @@ class CastWidget extends StatelessWidget {
           );
         }
         if (state is CastError) {
-          return Text("Error");
+          return const Text("Error");
         }
-        return Text("Something else");
+        return const Text("Something else");
       },
     );
   }

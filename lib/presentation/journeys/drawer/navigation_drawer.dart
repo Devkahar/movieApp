@@ -5,12 +5,10 @@ import 'package:movie_app/common/constants/size_constants.dart';
 import 'package:movie_app/common/constants/translation_constants.dart';
 import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/common/extensions/string_extension.dart';
-import 'package:movie_app/presentation/app_localization.dart';
 import 'package:movie_app/presentation/blocs/language_bloc/language_bloc.dart';
 import 'package:movie_app/presentation/journeys/app_dialog/app_dialog.dart';
 import 'package:movie_app/presentation/journeys/drawer/navigation_expanded_list_item.dart';
 import 'package:movie_app/presentation/journeys/drawer/navigation_list_item.dart';
-import 'package:movie_app/presentation/theme/theme_color.dart';
 import 'package:movie_app/presentation/widget/logo.dart';
 import 'package:wiredash/wiredash.dart';
 

@@ -1,8 +1,7 @@
-import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:movie_app/domain/entities/MovieParam.dart';
+import 'package:movie_app/domain/entities/movie_param.dart';
 import 'package:movie_app/domain/entities/video_entity.dart';
 import 'package:movie_app/domain/usecases/get_video.dart';
 

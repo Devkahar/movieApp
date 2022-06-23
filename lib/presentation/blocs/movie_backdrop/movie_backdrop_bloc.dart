@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -10,7 +9,7 @@ part 'movie_backdrop_state.dart';
 class MovieBackdropBloc extends Bloc<MovieBackdropEvent, MovieBackdropState> {
   MovieBackdropBloc() : super(MovieBackdropInitial()){
     on<MovieBackdropChangedEvent>((event,emit)async{
-        emit(MovieBackdropChanged((event).movie as MovieEntity));
+        emit(MovieBackdropChanged((event).movie));
     });
   }
 }

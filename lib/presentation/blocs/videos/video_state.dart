@@ -15,7 +15,7 @@ class VideosError extends VideoState {}
 class VideoLoaded extends VideoState {
   final List<VideoEntity> videos;
 
-  VideoLoaded(this.videos);
+  const VideoLoaded(this.videos);
 
   @override
   List<Object> get props => [videos];

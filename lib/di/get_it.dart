@@ -95,5 +95,5 @@ Future init() async {
       getSearchMovie: getItInstance(),
     ),
   );
-  getItInstance.registerLazySingle ton<LanguageBloc>(() => LanguageBloc());
+  getItInstance.registerLazySingleton<LanguageBloc>(() => LanguageBloc());
 }

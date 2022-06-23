@@ -4,15 +4,13 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:movie_app/data/data_source/movie_remote_data_source.dart';
-import 'package:movie_app/data/models/cast_crew_data_model.dart';
-import 'package:movie_app/domain/entities/MovieDetailEntity.dart';
+import 'package:movie_app/domain/entities/movie_detail_entity.dart';
 import 'package:movie_app/domain/entities/cast_entity.dart';
 import 'package:movie_app/domain/entities/movie_entity.dart';
 import 'package:movie_app/domain/entities/video_entity.dart';
 import 'package:movie_app/domain/repositories/movie_repository.dart';
 
 import '../../domain/entities/app_error.dart';
-import '../models/movies_model.dart';
 
 class MovieRepositoryImpl extends MovieRepository{
   final MovieRemoteDataSource remoteDataSource;

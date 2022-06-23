@@ -19,7 +19,7 @@ class MovieCarouselBloc extends Bloc<MovieCarouselEvent, MovieCarouselState> {
     required this.movieBackdropBloc,
   }) : super(MovieCarouselInitial()) {
     on<CarouselLoadEvent>((event, emit) async {
-      print("Event was loaded");
+      // print("Event was loaded");
       final movieEighter = await getTrending(NoParams());
       final data = movieEighter.fold(
         (l) => MovieCarouselError(l.appErrorType),

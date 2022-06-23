@@ -1,7 +1,6 @@
 
 
-import 'package:movie_app/domain/entities/MovieDetailEntity.dart';
-import 'package:movie_app/domain/entities/movie_entity.dart';
+import 'package:movie_app/domain/entities/movie_detail_entity.dart';
 class MovieDetailModel extends MovieDetailEntity {
   @override
   final int id;

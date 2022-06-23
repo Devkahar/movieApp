@@ -27,7 +27,7 @@ class MovieCarouselWidget extends StatelessWidget {
               initialPage: defaultIndex,
             ),
             const MovieDataWidget(),
-            Separator(),
+            const Separator(),
           ],
         ),
       ],

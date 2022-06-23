@@ -45,7 +45,7 @@ class CastModel extends CastEntity {
   final int order;
   final String profilePath;
 
-  CastModel({
+  const CastModel({
     required this.castId,
     required this.character,
     required this.creditId,
