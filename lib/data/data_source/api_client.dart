@@ -22,9 +22,10 @@ class ApiClient {
     String paramString ='';
     if(params!=null){
       params.forEach((key, value) {
-        paramString+= '$key=$value';
+        paramString+= '&$key=$value';
       });
     }
+    // print('${ApiConstanst.BASE_URL}$path?api_key=${ApiConstanst.API_KEY}$paramString');
     return Uri.parse('${ApiConstanst.BASE_URL}$path?api_key=${ApiConstanst.API_KEY}$paramString');
   }
 }

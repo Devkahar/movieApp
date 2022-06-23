@@ -18,4 +18,8 @@ class SearchMovieLoaded extends SearchMovieState {
 class SearchMovieLoading extends SearchMovieState {
 }
 class SearchMovieError extends SearchMovieState {
+  final AppErrorType appErrorType;
+
+  const SearchMovieError({required this.appErrorType});
+
 }
