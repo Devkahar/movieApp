@@ -87,9 +87,11 @@ class CustomSearchDelegate extends SearchDelegate {
           );
         } else if (state is SearchMovieError) {
           return AppErrorWidget(
-            onPressed: () => searchMovieBloc.add(SearchTermChangedEvent(
-              searchTerm: query,
-            )),
+            onPressed: () => searchMovieBloc.add(
+              SearchTermChangedEvent(
+                searchTerm: query,
+              ),
+            ),
             appErrorType: state.appErrorType,
           );
         }

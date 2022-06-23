@@ -3,7 +3,9 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:movie_app/data/data_source/movie_local_data_source.dart';
 import 'package:movie_app/data/data_source/movie_remote_data_source.dart';
+import 'package:movie_app/data/tabels/movie_table.dart';
 import 'package:movie_app/domain/entities/movie_detail_entity.dart';
 import 'package:movie_app/domain/entities/cast_entity.dart';
 import 'package:movie_app/domain/entities/movie_entity.dart';
@@ -14,7 +16,8 @@ import '../../domain/entities/app_error.dart';
 
 class MovieRepositoryImpl extends MovieRepository{
   final MovieRemoteDataSource remoteDataSource;
-  MovieRepositoryImpl(this.remoteDataSource);
+  final MovieLocalDataSource movieLocalDataSource;
+  MovieRepositoryImpl(this.remoteDataSource, this.movieLocalDataSource);
   @override
   Future<Either<AppError,List<MovieEntity>>> getTrending() async{
     try{
@@ -119,6 +122,46 @@ class MovieRepositoryImpl extends MovieRepository{
     }
     on Exception{
       return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, bool>> checkIfMovieFavourite(int movieId)async {
+    try{
+      final res = await movieLocalDataSource.checkIfMovieFavourite(movieId);
+      return Right(res);
+    }catch(error){
+      return const Left(AppError(AppErrorType.database));
+    }
+  }
+
+  @override
+  Future<Either<AppError, void>> deleteFavouriteMovies(int movieId) async{
+    try{
+      final res =await movieLocalDataSource.deleteMovie(movieId);
+      return Right(res);
+    }catch(error){
+      return const Left(AppError(AppErrorType.database));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<MovieEntity>>> getFavouriteMovies() async{
+    try{
+      final res = await movieLocalDataSource.getMovies();
+      return Right(res);
+    }catch(error){
+      return const Left(AppError(AppErrorType.database));
+    }
+  }
+
+  @override
+  Future<Either<AppError, void>> saveMovie(MovieEntity movieEntity) async{
+    try{
+      final res = await movieLocalDataSource.saveMovie(MovieTable.fromMovieEntity(movieEntity));
+      return Right(res);
+    }catch(error){
+      return const Left(AppError(AppErrorType.database));
     }
   }
 }

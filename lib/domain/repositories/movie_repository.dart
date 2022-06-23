@@ -16,4 +16,8 @@ abstract class MovieRepository{
   Future<Either<AppError,List<CastEntity>>> getCastCrew(int id);
   Future<Either<AppError, List<VideoEntity>>> getVideos(int id);
   Future<Either<AppError, List<MovieEntity>>> getSearchedMovie(String searchTerm);
+  Future<Either<AppError,void>> saveMovie(MovieEntity movieEntity);
+  Future<Either<AppError,void>> deleteFavouriteMovies(int movieId);
+  Future<Either<AppError,List<MovieEntity>>> getFavouriteMovies();
+  Future<Either<AppError,bool>> checkIfMovieFavourite(int movieId);
 }
