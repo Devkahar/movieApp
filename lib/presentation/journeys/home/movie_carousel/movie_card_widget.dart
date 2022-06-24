@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/common/constants/route_constant.dart';
 import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/core/api_constants.dart';
 import 'package:movie_app/presentation/journeys/movie_detail/movie_detail_arguments.dart';
@@ -22,12 +23,9 @@ class MovieCardWidget extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (ctx) => MovieDetailScreen(
-                movieDetailarguments: MovieDetailarguments(movieId),
-              ),
-            ),
+          Navigator.of(context).pushNamed(
+            RouteList.movie_detail_screen,
+            arguments: MovieDetailarguments(movieId),
           );
         },
         child: ClipRRect(

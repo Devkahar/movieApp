@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/common/constants/route_constant.dart';
 import 'package:movie_app/common/constants/size_constants.dart';
 import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/common/extensions/string_extension.dart';
@@ -12,19 +13,19 @@ class MovieTabCardWidget extends StatelessWidget {
   final String posterPath;
 
   const MovieTabCardWidget(
-      {Key? key, required this.title, required this.posterPath, required this.id})
+      {Key? key,
+      required this.title,
+      required this.posterPath,
+      required this.id})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (ctx) => MovieDetailScreen(
-              movieDetailarguments: MovieDetailarguments(id),
-            ),
-          ),
+        Navigator.of(context).pushNamed(
+          RouteList.movie_detail_screen,
+          arguments: MovieDetailarguments(id),
         );
       },
       child: Column(
@@ -44,7 +45,6 @@ class MovieTabCardWidget extends StatelessWidget {
               top: Sizes.dimen_10.h.toDouble(),
             ),
             child: Text(
-
               title.intelliTrim(),
               maxLines: 1,
               textAlign: TextAlign.center,

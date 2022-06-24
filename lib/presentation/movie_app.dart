@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_app/common/constants/language_constants.dart';
+import 'package:movie_app/common/constants/route_constant.dart';
 import 'package:movie_app/di/get_it.dart';
 import 'package:movie_app/presentation/app_localization.dart';
 import 'package:movie_app/presentation/blocs/language_bloc/language_bloc.dart';
+import 'package:movie_app/presentation/fade_page_route.dart';
+import 'package:movie_app/presentation/routes.dart';
 import 'package:movie_app/presentation/theme/theme_color.dart';
 import 'package:movie_app/presentation/theme/theme_text.dart';
 import 'package:movie_app/common/screenutil/screenutil.dart';
@@ -26,29 +29,31 @@ class _MovieAppState extends State<MovieApp> {
   late LanguageBloc _languageBloc;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _languageBloc = getItInstance<LanguageBloc>();
     _languageBloc.add(LoadPrefferedLanguageEvent());
   }
+
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     _languageBloc.close();
   }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init();
     return BlocProvider<LanguageBloc>.value(
       value: _languageBloc,
-      child: BlocBuilder<LanguageBloc,LanguageState>(
-        builder: (ctx,state){
-          if(state is LanguageLoadedState){
+      child: BlocBuilder<LanguageBloc, LanguageState>(
+        builder: (ctx, state) {
+          if (state is LanguageLoadedState) {
             return WiredashApp(
-              navigatorKey: _navigatorKey ,
+              navigatorKey: _navigatorKey,
               languageCode: state.locale.languageCode,
               child: MaterialApp(
-                navigatorKey: _navigatorKey ,
+                navigatorKey: _navigatorKey,
                 debugShowCheckedModeBanner: false,
                 title: 'Movie App',
                 theme: ThemeData(
@@ -58,14 +63,27 @@ class _MovieAppState extends State<MovieApp> {
                   textTheme: ThemeText.getTextTheme(),
                   appBarTheme: const AppBarTheme(elevation: 0),
                 ),
-                supportedLocales: LanguagesConstants.languages.map((e) => Locale(e.code)).toList(),
-                locale:state.locale,
+                supportedLocales: LanguagesConstants.languages
+                    .map((e) => Locale(e.code))
+                    .toList(),
+                locale: state.locale,
                 localizationsDelegates: [
                   AppLocalizations.delegate,
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                 ],
-                home: const HomeScreen(),
+                builder: (ctx, child) {
+                  return child??Container();
+                },
+                initialRoute: RouteList.initial_screen,
+                onGenerateRoute: (RouteSettings settings) {
+                  final routes = Routes.getRoutes(settings);
+                  final WidgetBuilder? builder = routes[settings.name];
+                  return FadePageRouteBuilder(
+                    builder: builder,
+                    settings: settings,
+                  );
+                },
               ),
             );
           }

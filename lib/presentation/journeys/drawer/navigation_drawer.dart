@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/common/constants/language_constants.dart';
+import 'package:movie_app/common/constants/route_constant.dart';
 import 'package:movie_app/common/constants/size_constants.dart';
 import 'package:movie_app/common/constants/translation_constants.dart';
 import 'package:movie_app/common/extensions/size_extension.dart';
@@ -46,10 +47,9 @@ class NavigationDrawer extends StatelessWidget {
             NavigationListItem(
               title: TranslationConstant.favouriteMovies.trans(context),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (ctx) => const FavouriteMovieScreen(),
-                  ),
+                Navigator.of(context).pushNamed(
+                  RouteList.favourite_screen,
+
                 );
               },
             ),
