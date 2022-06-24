@@ -6,9 +6,9 @@ import 'package:movie_app/presentation/theme/theme_color.dart';
 
 class Button extends StatelessWidget {
   final String title;
-  final Function onPressed;
-
-  const Button({Key? key, required this.title, required this.onPressed})
+  final Function? onPressed;
+  final bool isEnabled;
+  const Button({Key? key,required this.title, required this.onPressed,this.isEnabled = true})
       : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class Button extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w.toDouble()),
       margin: EdgeInsets.symmetric(vertical: Sizes.dimen_10.h.toDouble() ),
       child: TextButton(
-        onPressed: () => onPressed(),
+        onPressed: () => onPressed!(),
         child: Text(
           title.trans(context),
           style: Theme.of(context).textTheme.button,
