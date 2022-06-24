@@ -6,6 +6,7 @@ import 'package:movie_app/common/extensions/size_extension.dart';
 import 'package:movie_app/common/extensions/string_extension.dart';
 import 'package:movie_app/di/get_it.dart';
 import 'package:movie_app/presentation/blocs/cast/cast_bloc.dart';
+import 'package:movie_app/presentation/blocs/favourite/favourite_bloc.dart';
 import 'package:movie_app/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_app/presentation/blocs/videos/video_bloc.dart';
 import 'package:movie_app/presentation/journeys/movie_detail/cast_widget.dart';
@@ -28,13 +29,15 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   late final MovieDetailBloc _movieDetailBloc;
   late final CastBloc _castBloc;
   late final VideoBloc _videoBloc;
-
+  late final FavouriteBloc _favouriteBloc;
   @override
   void initState() {
     super.initState();
     _movieDetailBloc = getItInstance<MovieDetailBloc>();
     _castBloc = _movieDetailBloc.castBloc;
     _videoBloc = _movieDetailBloc.videoBloc;
+    _favouriteBloc = _movieDetailBloc.favouriteBloc;
+
     // print(widget.movieDetailarguments.movieId);
     _movieDetailBloc.add(
       MovieDetailLoadEvent(widget.movieDetailarguments.movieId),
@@ -56,6 +59,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         providers: [
           BlocProvider.value(value: _movieDetailBloc),
           BlocProvider.value(value: _castBloc),
+          BlocProvider.value(value: _videoBloc),
+          BlocProvider.value(value: _favouriteBloc),
         ],
         child: BlocBuilder<MovieDetailBloc, MovieDetailState>(
           builder: (context, state) {

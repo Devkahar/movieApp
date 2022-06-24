@@ -141,7 +141,7 @@ Future init() async {
     () => MovieDetailBloc(
       getMovieDetail: getItInstance(),
       castBloc: getItInstance(),
-      videoBloc: getItInstance(),
+      videoBloc: getItInstance(), favouriteBloc: getItInstance(),
     ),
   );
   getItInstance.registerFactory(

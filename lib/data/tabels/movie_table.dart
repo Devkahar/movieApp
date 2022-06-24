@@ -22,13 +22,13 @@ class MovieTable extends MovieEntity {
     this.title,
     this.posterPath,
   ) : super(
-          id: 0,
+          id: id,
           overview: '',
-          voterAverage: 1,
+          voterAverage: 0,
           releaseDate: '',
-          posterPath: '',
+          posterPath: posterPath,
           backDropPath: '',
-          title: '',
+          title: title,
         );
 
   factory MovieTable.fromMovieEntity(MovieEntity movieEntity) {
