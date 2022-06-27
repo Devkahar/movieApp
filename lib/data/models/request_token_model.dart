@@ -13,7 +13,7 @@ class RequestTokenModel {
     return RequestTokenModel(
       success: json['success'],
       requestToken: json['request_token'],
-      expireAt: json['expire_at'],
+      expireAt: json['expire_at']??'',
     );
   }
 

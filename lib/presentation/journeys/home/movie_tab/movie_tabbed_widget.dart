@@ -8,6 +8,7 @@ import 'package:movie_app/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart
 import 'package:movie_app/presentation/journeys/home/movie_tab/movie_list_view_builder.dart';
 import 'package:movie_app/presentation/journeys/home/movie_tab/movie_tab_constants.dart';
 import 'package:movie_app/presentation/journeys/home/movie_tab/tab_title_widget.dart';
+import 'package:movie_app/presentation/journeys/loading/loading_circle.dart';
 import 'package:movie_app/presentation/widget/app_error_widget.dart';
 
 class MovieTabbedWiget extends StatefulWidget {
@@ -24,8 +25,8 @@ class _MovieTabbedWigetState extends State<MovieTabbedWiget>
   int currentTabIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     movieTabbedBloc.add(
       MovieTabChangedEvent(
         currentTabIndex: currentTabIndex,
@@ -35,8 +36,10 @@ class _MovieTabbedWigetState extends State<MovieTabbedWiget>
 
   @override
   void dispose() {
-    super.dispose();
     movieTabbedBloc.close();
+
+    print('_MovieTabbedWigetState.dispose');
+    super.dispose();
   }
 
   void _onTabTapped(int index) {
@@ -100,6 +103,14 @@ class _MovieTabbedWigetState extends State<MovieTabbedWiget>
                           currentTabIndex: currentTabIndex,
                         ));
                       }),
+                ),
+              if (state is MovieTabbedLoading)
+                Expanded(
+                  child: Center(
+                    child: LoadingCircle(
+                      size: Sizes.dimen_100.w.toDouble(),
+                    ),
+                  ),
                 ),
             ],
           ),

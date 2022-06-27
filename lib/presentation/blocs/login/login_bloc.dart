@@ -8,6 +8,7 @@ import 'package:movie_app/domain/entities/app_error.dart';
 import 'package:movie_app/domain/entities/login_request_param.dart';
 import 'package:movie_app/domain/usecases/login_user.dart';
 import 'package:movie_app/domain/usecases/logout_user.dart';
+import 'package:movie_app/presentation/blocs/loading/loading_bloc.dart';
 
 part 'login_event.dart';
 
@@ -16,13 +17,17 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUser loginUser;
   final LogoutUser logoutUser;
-
+  final LoadingBloc loadingBloc;
   LoginBloc({
     required this.loginUser,
     required this.logoutUser,
+    required this.loadingBloc,
   }) : super(LoginInitial()) {
+
     on<LoginInitiateEvent>(
+
       (event, emit) async {
+        loadingBloc.add(StartLoading());
         final Either<AppError, bool> eitherResponse = await loginUser(
           LoginRequestParams(
             userName: event.username,
@@ -38,6 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           (r) => LoginSuccess(),
         );
         emit(data);
+        loadingBloc.add(FinishLoading());
       },
     );
     on<LogoutEvent>(
@@ -45,6 +51,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(LogoutSuccess());
       }
     );
+
   }
 
   String getErrorMessage(AppErrorType appErrorType) {

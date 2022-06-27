@@ -21,7 +21,7 @@ class AuthenticationRemoteDataSourceImpl extends AuthenticationRemoteDataSource{
       params: requestBody,
     );
     print(response);
-    return response['success'] ? response['session_id'] : null;
+    return response['success'] ? response['session_id'] : '';
   }
 
   @override

@@ -30,6 +30,7 @@ import 'package:movie_app/domain/usecases/update_language.dart';
 import 'package:movie_app/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movie_app/presentation/blocs/favourite/favourite_bloc.dart';
 import 'package:movie_app/presentation/blocs/language_bloc/language_bloc.dart';
+import 'package:movie_app/presentation/blocs/loading/loading_bloc.dart';
 import 'package:movie_app/presentation/blocs/login/login_bloc.dart';
 import 'package:movie_app/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movie_app/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
@@ -37,7 +38,6 @@ import 'package:movie_app/presentation/blocs/movie_detail/movie_detail_bloc.dart
 import 'package:movie_app/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
 import 'package:movie_app/presentation/blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie_app/presentation/blocs/videos/video_bloc.dart';
-
 import '../data/data_source/authentication_remote_data_source.dart';
 
 final getItInstance = GetIt.I;
@@ -159,11 +159,15 @@ Future init() async {
   getItInstance.registerLazySingleton<AuthenticationRepository>(
           () => AuthenticationRepositoryImpl(getItInstance(), getItInstance()));
 
+  getItInstance.registerLazySingleton<LoadingBloc>(
+          () => LoadingBloc());
+
   getItInstance.registerFactory(
     () => MovieBackdropBloc(),
   );
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
+      loadingBloc: getItInstance(),
       getTrending: getItInstance(),
       movieBackdropBloc: getItInstance(),
     ),
@@ -179,6 +183,7 @@ Future init() async {
 
   getItInstance.registerFactory(
     () => MovieDetailBloc(
+      loadingBloc: getItInstance(),
       getMovieDetail: getItInstance(),
       castBloc: getItInstance(),
       videoBloc: getItInstance(),
@@ -197,6 +202,7 @@ Future init() async {
   );
   getItInstance.registerFactory(
     () => SearchMovieBloc(
+      loadingBloc: getItInstance(),
       getSearchMovie: getItInstance(),
     ),
   );
@@ -209,6 +215,7 @@ Future init() async {
     ),
   );
   getItInstance.registerFactory(() => LoginBloc(
+    loadingBloc: getItInstance(),
     loginUser: getItInstance(),
     logoutUser: getItInstance(),
   ));

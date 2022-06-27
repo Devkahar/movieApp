@@ -6,7 +6,10 @@ import 'package:movie_app/common/constants/route_constant.dart';
 import 'package:movie_app/di/get_it.dart';
 import 'package:movie_app/presentation/app_localization.dart';
 import 'package:movie_app/presentation/blocs/language_bloc/language_bloc.dart';
+import 'package:movie_app/presentation/blocs/loading/loading_bloc.dart';
+import 'package:movie_app/presentation/blocs/login/login_bloc.dart';
 import 'package:movie_app/presentation/fade_page_route.dart';
+import 'package:movie_app/presentation/journeys/loading/loading_screen.dart';
 import 'package:movie_app/presentation/routes.dart';
 import 'package:movie_app/presentation/theme/theme_color.dart';
 import 'package:movie_app/presentation/theme/theme_text.dart';
@@ -27,25 +30,35 @@ class MovieApp extends StatefulWidget {
 class _MovieAppState extends State<MovieApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
   late LanguageBloc _languageBloc;
+  late LoadingBloc _loadingBloc;
+  late LoginBloc _loginBloc;
 
   @override
   void initState() {
     super.initState();
     _languageBloc = getItInstance<LanguageBloc>();
     _languageBloc.add(LoadPrefferedLanguageEvent());
+    _loadingBloc = getItInstance<LoadingBloc>();
+    _loginBloc = getItInstance<LoginBloc>();
   }
 
   @override
   void dispose() {
     super.dispose();
     _languageBloc.close();
+    _loadingBloc.close();
+    _loginBloc.close();
   }
 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init();
-    return BlocProvider<LanguageBloc>.value(
-      value: _languageBloc,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LanguageBloc>.value(value: _languageBloc),
+        BlocProvider<LoadingBloc>.value(value: _loadingBloc),
+        BlocProvider<LoginBloc>.value(value: _loginBloc),
+      ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (ctx, state) {
           if (state is LanguageLoadedState) {
@@ -73,7 +86,9 @@ class _MovieAppState extends State<MovieApp> {
                   GlobalWidgetsLocalizations.delegate,
                 ],
                 builder: (ctx, child) {
-                  return child??Container();
+                  return LoadingScreen(
+                    screen: child ?? Container(),
+                  );
                 },
                 initialRoute: RouteList.initial_screen,
                 onGenerateRoute: (RouteSettings settings) {
